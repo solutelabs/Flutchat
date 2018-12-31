@@ -1,0 +1,83 @@
+package stllpt.com.flutchat
+
+import android.content.Intent
+import android.os.Bundle
+import android.text.format.DateUtils
+import io.flutter.app.FlutterActivity
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugins.GeneratedPluginRegistrant
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
+
+
+/**
+ * Created by stllpt031 on 11/9/18.
+ */
+class FirstActivity : FlutterActivity() {
+    private var result: MethodChannel.Result? = null
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 300) {
+            data?.extras?.let { it ->
+                val callStartDate: Date = it.getSerializable("callStartTime") as Date
+                result?.success("${callStartDate.getDuration().first}:" +
+                        "${callStartDate.getDuration().second}:" +
+                        "${callStartDate.getDuration().third}")
+            }
+        }
+    }
+
+    private fun Date.getDuration(): Triple<String, String, String> {
+        val todayDate = Calendar.getInstance()
+        todayDate.time = this
+        val serverDate = Calendar.getInstance()
+        serverDate.time = Date()
+        serverDate.set(todayDate.get(Calendar.YEAR),
+                todayDate.get(Calendar.MONTH),
+                todayDate.get(Calendar.DATE))
+        var hours: Long = 0
+        var minutes: Long = 0
+        var seconds: Long = 0
+        if (serverDate.after(todayDate)) {
+            hours = TimeUnit.MILLISECONDS.toHours(serverDate.timeInMillis - todayDate.timeInMillis)
+            minutes = TimeUnit.MILLISECONDS.toMinutes(serverDate.timeInMillis - todayDate.timeInMillis)
+            seconds = TimeUnit.MILLISECONDS.toSeconds(serverDate.timeInMillis - todayDate.timeInMillis)
+            return Triple(hours.displayAsTwoDecimal(),
+                    (minutes - 60 * hours).displayAsTwoDecimal(),
+                    (seconds - 60 * minutes).displayAsTwoDecimal())
+        } else {
+            return Triple("", "", "")
+        }
+    }
+    fun Long.displayAsTwoDecimal(): String {
+        val df = DecimalFormat("00")
+        df.maximumFractionDigits = 2
+        return df.format(this)
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        GeneratedPluginRegistrant.registerWith(this)
+        MethodChannel(flutterView, "app.channel.shared.data")
+                .setMethodCallHandler { methodCall, result ->
+                    methodCall.method?.let {
+                        if (it.contentEquals("openVideoChat")) {
+                            this@FirstActivity.result = result
+                            startActivityForResult(Intent(FirstActivity@ this, VideoScreen::class.java), 300)
+                        }
+                    }
+                }
+
+    }
+
+    fun getDisplayValue(milliSec: Long): String {
+        val sec = (milliSec/1000) % 60
+        val min = ((milliSec/1000) / 60) % 60
+        val hour = ((milliSec/1000) / 60) / 60
+
+        return "$hour hour $min min $sec sec"
+    }
+}
+
+    
