@@ -2,12 +2,10 @@ package stllpt.com.flutchat
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.format.DateUtils
 import io.flutter.app.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -24,7 +22,7 @@ class FirstActivity : FlutterActivity() {
                 val callStartDate: Date = it.getSerializable("callStartTime") as Date
                 result?.success("${callStartDate.getDuration().first}:" +
                         "${callStartDate.getDuration().second}:" +
-                        "${callStartDate.getDuration().third}")
+                        callStartDate.getDuration().third)
             }
         }
     }
@@ -37,22 +35,22 @@ class FirstActivity : FlutterActivity() {
         serverDate.set(todayDate.get(Calendar.YEAR),
                 todayDate.get(Calendar.MONTH),
                 todayDate.get(Calendar.DATE))
-        var hours: Long = 0
-        var minutes: Long = 0
-        var seconds: Long = 0
-        if (serverDate.after(todayDate)) {
+        val hours: Long
+        val minutes: Long
+        val seconds: Long
+        return if (serverDate.after(todayDate)) {
             hours = TimeUnit.MILLISECONDS.toHours(serverDate.timeInMillis - todayDate.timeInMillis)
             minutes = TimeUnit.MILLISECONDS.toMinutes(serverDate.timeInMillis - todayDate.timeInMillis)
             seconds = TimeUnit.MILLISECONDS.toSeconds(serverDate.timeInMillis - todayDate.timeInMillis)
-            return Triple(hours.displayAsTwoDecimal(),
+            Triple(hours.displayAsTwoDecimal(),
                     (minutes - 60 * hours).displayAsTwoDecimal(),
                     (seconds - 60 * minutes).displayAsTwoDecimal())
         } else {
-            return Triple("", "", "")
+            Triple("", "", "")
         }
     }
 
-    fun Long.displayAsTwoDecimal(): String {
+    private fun Long.displayAsTwoDecimal(): String {
         val df = DecimalFormat("00")
         df.maximumFractionDigits = 2
         return df.format(this)
@@ -66,21 +64,12 @@ class FirstActivity : FlutterActivity() {
                     methodCall.method?.let {
                         if (it.contentEquals("openVideoChat")) {
                             this@FirstActivity.result = result
-                            startActivityForResult(Intent(FirstActivity@ this, VideoScreen::class.java), 300)
+                            startActivityForResult(Intent( this, VideoScreen::class.java), 300)
                         }
                     }
                 }
-        
-
     }
 
-    fun getDisplayValue(milliSec: Long): String {
-        val sec = (milliSec / 1000) % 60
-        val min = ((milliSec / 1000) / 60) % 60
-        val hour = ((milliSec / 1000) / 60) / 60
-
-        return "$hour hour $min min $sec sec"
-    }
 }
 
     
