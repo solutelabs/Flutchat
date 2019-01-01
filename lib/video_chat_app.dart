@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class IntentApp extends StatelessWidget {
+class VideoChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +15,7 @@ class IntentApp extends StatelessWidget {
           title: Text("FlutChat"),
         ),
         body: Center(
-          child: VideoCallScreen(),
+          child: HomeWidget(),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -23,20 +23,25 @@ class IntentApp extends StatelessWidget {
   }
 }
 
-class VideoCallScreen extends StatefulWidget {
+class HomeWidget extends StatefulWidget {
   @override
-  _VideoCallScreenState createState() => _VideoCallScreenState();
+  _HomeWidgetState createState() => _HomeWidgetState();
 }
 
-class _VideoCallScreenState extends State<VideoCallScreen> {
-  static const platform = const MethodChannel("app.channel.shared.data");
-  var callDuration;
+class _HomeWidgetState extends State<HomeWidget> {
+  static const platform = const MethodChannel("com.stl.flutchat/opentok");
+  var _callDuration;
 
   void _openVideoCallScreen() async {
     print("item clicked");
-    var returnValue = await platform.invokeMethod("openVideoChat");
+    var callDuration = "Unknown call duration.";
+    try {
+      callDuration = await platform.invokeMethod("openVideoChat");
+    } on PlatformException catch (e) {
+      callDuration = "Failed to get call duration.";
+    }
     setState(() {
-      callDuration = returnValue;
+      _callDuration = callDuration;
     });
   }
 
@@ -46,28 +51,23 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        _info(),
+        InfoTitle(),
         RaisedButton(
           child: Text("Start Video Call"),
-          onPressed: () {
-            _openVideoCallScreen();
-          },
+          onPressed: _openVideoCallScreen,
           textTheme: ButtonTextTheme.accent,
         ),
-        _duration()
+        ShowDuration(
+          callDuration: _callDuration,
+        )
       ],
     );
   }
+}
 
-  Widget _duration() {
-    if (callDuration != null) {
-      return Text("Last call duration : $callDuration");
-    } else {
-      return Container();
-    }
-  }
-
-  Widget _info() {
+class InfoTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -77,5 +77,20 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         ),
       ),
     );
+  }
+}
+
+class ShowDuration extends StatelessWidget {
+  final double callDuration;
+
+  const ShowDuration({Key key, this.callDuration}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (callDuration != null) {
+      return Text("Last call duration : $callDuration");
+    } else {
+      return Container();
+    }
   }
 }

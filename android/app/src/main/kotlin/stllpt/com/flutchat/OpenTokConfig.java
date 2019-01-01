@@ -7,11 +7,11 @@ public class OpenTokConfig {
     // ***                      https://dashboard.tokbox.com/projects                           ***
 
     // Replace with your OpenTok API key
-    public static final String API_KEY = "INSERT YOUR OPENTOK API KEY HEAR";
+    public static final String API_KEY = "INSERT YOUR OPENTOK API KEY HERE";
     // Replace with a generated Session ID
-    public static final String SESSION_ID = "INSERT YOUR OPENTOK SESSION ID HEAR";
+    public static final String SESSION_ID = "INSERT YOUR OPENTOK SESSION ID HERE";
     // Replace with a generated token (from the dashboard or using an OpenTok server SDK)
-    public static final String TOKEN = "INSERT YOUR OPENTOK TOKEN HEAR";
+    public static final String TOKEN = "INSERT YOUR OPENTOK TOKEN HERE";
 
     /*                           ***** OPTIONAL *****
      If you have set up a server to provide session information replace the null value
