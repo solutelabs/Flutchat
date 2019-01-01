@@ -85,7 +85,7 @@ class InfoTitle extends StatelessWidget {
 
 /// Widget to display last call duration.
 class ShowDuration extends StatelessWidget {
-  final double callDuration;
+  final String callDuration;
 
   const ShowDuration({Key key, this.callDuration}) : super(key: key);
 
