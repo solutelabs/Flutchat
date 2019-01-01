@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutchat/IntentApp.dart';
+import 'package:flutchat/VideoChatApp.dart';
 
-void main() => runApp(IntentApp());
+void main() => runApp(VideoChatApp());
 

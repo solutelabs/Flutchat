@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class IntentApp extends StatelessWidget {
+class VideoChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,28 +51,23 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        _info(),
+        InfoTitle(),
         RaisedButton(
           child: Text("Start Video Call"),
-          onPressed: () {
-            _openVideoCallScreen();
-          },
+          onPressed: _openVideoCallScreen,
           textTheme: ButtonTextTheme.accent,
         ),
-        _duration()
+        ShowDuration(
+          callDuration: _callDuration,
+        )
       ],
     );
   }
+}
 
-  Widget _duration() {
-    if (_callDuration != null) {
-      return Text("Last call duration : $_callDuration");
-    } else {
-      return Container();
-    }
-  }
-
-  Widget _info() {
+class InfoTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
@@ -82,5 +77,20 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         ),
       ),
     );
+  }
+}
+
+class ShowDuration extends StatelessWidget {
+  final double callDuration;
+
+  const ShowDuration({Key key, this.callDuration}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (callDuration != null) {
+      return Text("Last call duration : $callDuration");
+    } else {
+      return Container();
+    }
   }
 }
