@@ -23,6 +23,7 @@ class VideoChatApp extends StatelessWidget {
   }
 }
 
+/// Widget to display start video call layout.
 class VideoCallScreen extends StatefulWidget {
   @override
   _VideoCallScreenState createState() => _VideoCallScreenState();
@@ -33,7 +34,6 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   var _callDuration;
 
   void _openVideoCallScreen() async {
-    print("item clicked");
     var callDuration = "Unknown call duration.";
     try {
       callDuration = await platform.invokeMethod("openVideoChat");
@@ -65,6 +65,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   }
 }
 
+/// Widget to display start video call title.
 class InfoTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -80,6 +81,7 @@ class InfoTitle extends StatelessWidget {
   }
 }
 
+/// Widget to display last call duration.
 class ShowDuration extends StatelessWidget {
   final double callDuration;
 

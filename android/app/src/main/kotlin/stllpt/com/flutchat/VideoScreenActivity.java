@@ -33,16 +33,16 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
- * Created by stllpt031 on 27/12/18.
+ * Activity for video chat for maximum 2 participants.
  */
-public class VideoScreen extends AppCompatActivity
+public class VideoScreenActivity extends AppCompatActivity
         implements EasyPermissions.PermissionCallbacks,
         WebServiceCoordinator.Listener,
         Session.SessionListener,
         PublisherKit.PublisherListener,
         SubscriberKit.SubscriberListener {
 
-    private static final String LOG_TAG = VideoScreen.class.getSimpleName();
+    private static final String LOG_TAG = VideoScreenActivity.class.getSimpleName();
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
 
@@ -317,7 +317,7 @@ public class VideoScreen extends AppCompatActivity
                 .setMessage(errorMessage)
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        VideoScreen.this.finish();
+                        VideoScreenActivity.this.finish();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
