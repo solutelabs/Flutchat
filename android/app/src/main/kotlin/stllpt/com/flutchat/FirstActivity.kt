@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 
 /**
- * Created by stllpt031 on 11/9/18.
+ * Entry point for the android project.
  */
 class FirstActivity : FlutterActivity() {
     private var result: MethodChannel.Result? = null
@@ -27,6 +27,9 @@ class FirstActivity : FlutterActivity() {
         }
     }
 
+    /**
+     * Extension function to get time difference for current time and provided time.
+     */
     private fun Date.getDuration(): Triple<String, String, String> {
         val todayDate = Calendar.getInstance()
         todayDate.time = this
@@ -50,6 +53,9 @@ class FirstActivity : FlutterActivity() {
         }
     }
 
+    /**
+     * Extension function to display number as 2 digit decimals.
+     */
     private fun Long.displayAsTwoDecimal(): String {
         val df = DecimalFormat("00")
         df.maximumFractionDigits = 2
@@ -64,7 +70,7 @@ class FirstActivity : FlutterActivity() {
                     methodCall.method?.let {
                         if (it.contentEquals("openVideoChat")) {
                             this@FirstActivity.result = result
-                            startActivityForResult(Intent( this, VideoScreen::class.java), 300)
+                            startActivityForResult(Intent( this, VideoActivity::class.java), 300)
                         }
                     }
                 }
