@@ -1,10 +1,10 @@
 # Flutchat
 
-This sample is to describe method channel feature in practical aspect. We will implement third party dependency provided by tokbox sdk and integrate it along with flutter. The main agenda for method channel is to use platform specific APIs in flutter.
+This sample is to describe method channel feature in practical aspect. We will implement third party dependency provided by TokBox sdk and integrate it along with flutter. The main agenda for method channel is to use platform specific APIs in flutter.
 
 ## Getting Started
 
-To integrate tokbox sdk in flutter we need to write platform specific code in android and IOS and then we will call that using respactive channel from Launcher activity as shown in following diagram.
+To integrate TokBox sdk in flutter we need to write platform specific code in android and iOS and then we will call that using respective channel from Launcher activity as shown in following diagram.
 
 ![alt text](https://raw.githubusercontent.com/solutelabs/Flutchat/feature/add_assets/workflow.jpg)
 
