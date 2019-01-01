@@ -51,15 +51,17 @@ class FirstActivity : FlutterActivity() {
             return Triple("", "", "")
         }
     }
+
     fun Long.displayAsTwoDecimal(): String {
         val df = DecimalFormat("00")
         df.maximumFractionDigits = 2
         return df.format(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GeneratedPluginRegistrant.registerWith(this)
-        MethodChannel(flutterView, "app.channel.shared.data")
+        MethodChannel(flutterView, "com.stl.flutchat/opentok")
                 .setMethodCallHandler { methodCall, result ->
                     methodCall.method?.let {
                         if (it.contentEquals("openVideoChat")) {
@@ -68,13 +70,14 @@ class FirstActivity : FlutterActivity() {
                         }
                     }
                 }
+        
 
     }
 
     fun getDisplayValue(milliSec: Long): String {
-        val sec = (milliSec/1000) % 60
-        val min = ((milliSec/1000) / 60) % 60
-        val hour = ((milliSec/1000) / 60) / 60
+        val sec = (milliSec / 1000) % 60
+        val min = ((milliSec / 1000) / 60) % 60
+        val hour = ((milliSec / 1000) / 60) / 60
 
         return "$hour hour $min min $sec sec"
     }

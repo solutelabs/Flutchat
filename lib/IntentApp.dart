@@ -29,14 +29,19 @@ class VideoCallScreen extends StatefulWidget {
 }
 
 class _VideoCallScreenState extends State<VideoCallScreen> {
-  static const platform = const MethodChannel("app.channel.shared.data");
-  var callDuration;
+  static const platform = const MethodChannel("com.stl.flutchat/opentok");
+  var _callDuration;
 
   void _openVideoCallScreen() async {
     print("item clicked");
-    var returnValue = await platform.invokeMethod("openVideoChat");
+    var callDuration = "Unknown call duration.";
+    try {
+      callDuration = await platform.invokeMethod("openVideoChat");
+    } on PlatformException catch (e) {
+      callDuration = "Failed to get call duration.";
+    }
     setState(() {
-      callDuration = returnValue;
+      _callDuration = callDuration;
     });
   }
 
@@ -60,8 +65,8 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   }
 
   Widget _duration() {
-    if (callDuration != null) {
-      return Text("Last call duration : $callDuration");
+    if (_callDuration != null) {
+      return Text("Last call duration : $_callDuration");
     } else {
       return Container();
     }
