@@ -70,7 +70,7 @@ class FirstActivity : FlutterActivity() {
                     methodCall.method?.let {
                         if (it.contentEquals("openVideoChat")) {
                             this@FirstActivity.result = result
-                            startActivityForResult(Intent( this, VideoScreen::class.java), 300)
+                            startActivityForResult(Intent( this, VideoActivity::class.java), 300)
                         }
                     }
                 }
