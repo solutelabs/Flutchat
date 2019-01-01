@@ -1,6 +1,6 @@
 # Flutchat
 
-This Sample is to describe method channel feature in practical aspect. We will implement third party dependency provided by tokbox sdk and integrate it along with flutter. The main agenda for method channel is to use platform specific APIs in flutter.
+This sample is to describe method channel feature in practical aspect. We will implement third party dependency provided by tokbox sdk and integrate it along with flutter. The main agenda for method channel is to use platform specific APIs in flutter.
 
 ## Getting Started
 
