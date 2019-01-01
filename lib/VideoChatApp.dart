@@ -15,7 +15,7 @@ class VideoChatApp extends StatelessWidget {
           title: Text("FlutChat"),
         ),
         body: Center(
-          child: VideoCallScreen(),
+          child: HomeWidget(),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -23,12 +23,12 @@ class VideoChatApp extends StatelessWidget {
   }
 }
 
-class VideoCallScreen extends StatefulWidget {
+class HomeWidget extends StatefulWidget {
   @override
-  _VideoCallScreenState createState() => _VideoCallScreenState();
+  _HomeWidgetState createState() => _HomeWidgetState();
 }
 
-class _VideoCallScreenState extends State<VideoCallScreen> {
+class _HomeWidgetState extends State<HomeWidget> {
   static const platform = const MethodChannel("com.stl.flutchat/opentok");
   var _callDuration;
 
