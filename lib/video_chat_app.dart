@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// Home widget to display video chat option.
 class VideoChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class VideoChatApp extends StatelessWidget {
   }
 }
 
+/// Widget to display start video call layout.
 class HomeWidget extends StatefulWidget {
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
@@ -65,6 +67,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 }
 
+/// Widget to display start video call title.
 class InfoTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -80,8 +83,9 @@ class InfoTitle extends StatelessWidget {
   }
 }
 
+/// Widget to display last call duration.
 class ShowDuration extends StatelessWidget {
-  final double callDuration;
+  final String callDuration;
 
   const ShowDuration({Key key, this.callDuration}) : super(key: key);
 
