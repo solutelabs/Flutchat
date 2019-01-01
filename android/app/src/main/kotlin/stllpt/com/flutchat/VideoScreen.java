@@ -33,7 +33,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
- * Created by stllpt031 on 27/12/18.
+ * Activity for video chat for maximum 2 participants.
  */
 public class VideoScreen extends AppCompatActivity
         implements EasyPermissions.PermissionCallbacks,
