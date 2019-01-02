@@ -10,6 +10,10 @@ To integrate TokBox sdk in flutter we need to write platform specific code in an
 
 ### Android
 
+#### Requirements 
+- You need to replace you api key, session id and token with yours [here](https://github.com/solutelabs/Flutchat/blob/master/android/app/src/main/kotlin/stllpt/com/flutchat/OpenTokConfig.kt) which you can get from [OpenTok dashboard](https://tokbox.com/account/) project section
+
+#### Implementation
 - To integrate platform channel in android we need to initiate MehtodChannel in onCreate method in LauncherActivity (Here we will use FirstActivity as Launcher).
 ```
         MethodChannel(flutterView, "channel_id")
@@ -39,3 +43,8 @@ result.success(any object);
 For more information regarding platform channel refer
 [online documentation](https://flutter.io/docs/development/platform-integration/platform-channels), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## More reference 
+- Tokbox android integration : https://tokbox.com/developer/tutorials/android/basic-video-chat/
+- OpenTok android sdk sample : https://github.com/opentok/opentok-android-sdk-samples
+- Flutter method channel : https://flutter.io/docs/development/platform-integration/platform-channels
