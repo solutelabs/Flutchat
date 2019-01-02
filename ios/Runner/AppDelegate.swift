@@ -13,11 +13,10 @@ import Flutter
         let videoChatChannel = FlutterMethodChannel(name: "com.stl.flutchat/opentok",
                                                     binaryMessenger: controller)
         videoChatChannel.setMethodCallHandler({
-            (call: FlutterMethodCall, result: FlutterResult) -> Void in
+            [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
             switch call.method {
             case "openVideoChat":
-                // TODO: Handle video chat related feature
-                break
+                self?.presentVideoChatScreen(result: result)
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -25,6 +24,17 @@ import Flutter
         
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+    
+    func presentVideoChatScreen(result: @escaping FlutterResult) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let identifier = "VideoChatNavigationViewController"
+        let navVC = storyboard.instantiateViewController(withIdentifier: identifier) as! UINavigationController
+        let videoChatVC = navVC.viewControllers.first as! VideoChatViewController
+        videoChatVC.onCloseTap = { callDuration in
+            result("\(callDuration) seconds")
+        }
+        window.rootViewController?.present(navVC, animated: true, completion: nil)
     }
     
 }
