@@ -39,7 +39,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     var callDuration = "Unknown call duration.";
     try {
       callDuration = await platform.invokeMethod("openVideoChat");
-    } on PlatformException catch (e) {
+    } on PlatformException catch (_) {
       callDuration = "Failed to get call duration.";
     }
     setState(() {
