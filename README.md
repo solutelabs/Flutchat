@@ -4,10 +4,6 @@ This sample is to describe method channel feature in practical aspect. (Complete
 
 ## Getting Started
 
-To integrate TokBox sdk in flutter we need to write platform specific code in android and iOS and then we will call that using respective channel from Launcher activity as shown in following diagram.
-
-![alt text](https://raw.githubusercontent.com/solutelabs/Flutchat/feature/add_assets/workflow.jpg)
-
 ### Android
 
 #### Requirements 
